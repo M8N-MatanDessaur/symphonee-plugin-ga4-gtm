@@ -1,13 +1,26 @@
 {
   "id": "ga4-gtm",
   "name": "GA4 & GTM Analytics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Google Analytics 4 and Tag Manager dashboard with AI-powered tag audits and event tracking",
   "icon": "bar-chart-3",
   "tint": "66, 133, 244",
   "instructions": "instructions.md",
-  "aiKeywords": ["ga4", "gtm", "google analytics", "tag manager", "analytics", "conversion", "tracking", "events", "tags", "triggers"],
-  "activationConditions": { "always": true },
+  "aiKeywords": [
+    "ga4",
+    "gtm",
+    "google analytics",
+    "tag manager",
+    "analytics",
+    "conversion",
+    "tracking",
+    "events",
+    "tags",
+    "triggers"
+  ],
+  "activationConditions": {
+    "always": true
+  },
   "settings": [
     {
       "key": "clientId",
