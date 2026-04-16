@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="/plugins/sdk/devops-pilot-sdk.js"></script>
+<script src="/plugins/sdk/symphonee-sdk.js"></script>
 <style>
   * { box-sizing: border-box; }
   ::-webkit-scrollbar { width: 7px; height: 7px; }
@@ -231,7 +231,7 @@
         <span>Go to</span> <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" rel="noopener" style="color:var(--accent);">OAuth consent screen</a> <span>and configure it:</span>
         <ul style="margin:4px 0 0 8px;padding-left:16px;list-style:disc;">
           <li>User type: <strong style="color:var(--text);">External</strong></li>
-          <li>App name: anything (e.g. "DevOps Pilot")</li>
+          <li>App name: anything (e.g. "Symphonee")</li>
           <li>Under <strong style="color:var(--text);">Scopes</strong>, click "Add or Remove Scopes" and add these three:
             <div style="margin:4px 0 4px 4px;">
               <code style="font-size:10px;background:var(--surface1);padding:1px 5px;border-radius:3px;display:inline-block;margin:1px 0;">https://www.googleapis.com/auth/analytics.readonly</code><br>
@@ -248,7 +248,7 @@
         <span>Go to</span> <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener" style="color:var(--accent);">APIs & Services &gt; Credentials</a><span>, click</span> <strong style="color:var(--text);">Create Credentials &gt; OAuth client ID</strong><span>:</span>
         <ul style="margin:4px 0 0 8px;padding-left:16px;list-style:disc;">
           <li>Application type: <strong style="color:var(--text);">Web application</strong></li>
-          <li>Name: anything (e.g. "DevOps Pilot")</li>
+          <li>Name: anything (e.g. "Symphonee")</li>
           <li>Authorized redirect URI -- add exactly:<br>
             <code style="font-size:11px;background:var(--surface1);padding:2px 6px;border-radius:3px;display:inline-block;margin:4px 0;user-select:all;">http://127.0.0.1:3800/api/plugins/ga4-gtm/auth/callback</code>
           </li>
@@ -256,12 +256,12 @@
       </div>
 
       <div style="margin-bottom:8px;">
-        <strong style="color:var(--text);">Step 5 -- Add credentials to DevOps Pilot</strong><br>
+        <strong style="color:var(--text);">Step 5 -- Add credentials to Symphonee</strong><br>
         <span>Copy the <strong style="color:var(--text);">Client ID</strong> and <strong style="color:var(--text);">Client Secret</strong> from the credential you just created, then paste them into <strong style="color:var(--text);">Settings &gt; Plugins &gt; GA4 & GTM Analytics</strong>.</span>
       </div>
 
     </div>
-    <button class="btn primary" style="padding:8px 24px;" onclick="DevOpsPilot.openSettings('plugins')">Open Settings</button>
+    <button class="btn primary" style="padding:8px 24px;" onclick="Symphonee.openSettings('plugins')">Open Settings</button>
   </div>
   <div id="setupHasCreds" style="display:none;">
     <p>Google OAuth credentials are configured. Click below to sign in.</p>
@@ -548,53 +548,53 @@ var AUTO_EVENTS = [
 var TAB_ACTIONS = {
   tags: [
     { t: 'Audit Tags', d: 'Find dormant, duplicate, and misconfigured tags',
-      action: function() { DevOpsPilot.askAi('Run a full GTM tag audit.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nAnalyze: health assessment, dormant/paused tags, duplicates, cleanup recommendations.'); }},
+      action: function() { Symphonee.askAi('Run a full GTM tag audit.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nAnalyze: health assessment, dormant/paused tags, duplicates, cleanup recommendations.'); }},
     { t: 'Find Dormant Tags', d: 'Tags with no firing triggers that will never fire',
-      action: function() { DevOpsPilot.askAi('Find all dormant GTM tags (no triggers).\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/health\n\nList each dormant tag, its type, and whether it should be removed or needs a trigger.'); }},
+      action: function() { Symphonee.askAi('Find all dormant GTM tags (no triggers).\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/health\n\nList each dormant tag, its type, and whether it should be removed or needs a trigger.'); }},
     { t: 'Tag Cleanup Plan', d: 'Generate a step-by-step plan to clean up your tags',
-      action: function() { DevOpsPilot.askAi('Create a GTM tag cleanup plan.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nGroup by priority: remove, fix, review. Save as note "GTM Cleanup Plan".'); }},
+      action: function() { Symphonee.askAi('Create a GTM tag cleanup plan.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nGroup by priority: remove, fix, review. Save as note "GTM Cleanup Plan".'); }},
     { t: 'Create a Tag', d: 'Let AI help you create a new GTM tag',
-      action: function() { DevOpsPilot.askAi('Help me create a new GTM tag. Ask me:\n1. What type of tag (GA4 Event, Custom HTML, Google Ads, etc.)?\n2. What should it track?\n3. When should it fire (which trigger)?\n\nThen generate the tag configuration and explain how to add it in Google Tag Manager.'); }},
+      action: function() { Symphonee.askAi('Help me create a new GTM tag. Ask me:\n1. What type of tag (GA4 Event, Custom HTML, Google Ads, etc.)?\n2. What should it track?\n3. When should it fire (which trigger)?\n\nThen generate the tag configuration and explain how to add it in Google Tag Manager.'); }},
   ],
   triggers: [
     { t: 'Analyze Triggers', d: 'Review trigger configurations and find issues',
-      action: function() { DevOpsPilot.askAi('Analyze all GTM triggers.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/gtm/triggers\n\nList each trigger with its type, conditions, and which tags use it. Flag any potential issues.'); }},
+      action: function() { Symphonee.askAi('Analyze all GTM triggers.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/gtm/triggers\n\nList each trigger with its type, conditions, and which tags use it. Flag any potential issues.'); }},
     { t: 'Unused Triggers', d: 'Find triggers not connected to any tag',
-      action: function() { DevOpsPilot.askAi('Find GTM triggers not used by any tag.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nCross-reference triggers with tags and list orphaned triggers.'); }},
+      action: function() { Symphonee.askAi('Find GTM triggers not used by any tag.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nCross-reference triggers with tags and list orphaned triggers.'); }},
     { t: 'Create a Trigger', d: 'Let AI help you create a new GTM trigger',
-      action: function() { DevOpsPilot.askAi('Help me create a new GTM trigger. Ask me:\n1. What should trigger it (page view, click, form submit, custom event, etc.)?\n2. On which pages or elements?\n3. Any conditions or filters?\n\nThen generate the trigger configuration and explain how to set it up in Google Tag Manager.'); }},
+      action: function() { Symphonee.askAi('Help me create a new GTM trigger. Ask me:\n1. What should trigger it (page view, click, form submit, custom event, etc.)?\n2. On which pages or elements?\n3. Any conditions or filters?\n\nThen generate the trigger configuration and explain how to set it up in Google Tag Manager.'); }},
   ],
   variables: [
     { t: 'Find Unused Variables', d: 'Variables not referenced by any tag or trigger',
-      action: function() { DevOpsPilot.askAi('Find unused GTM variables.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/health\n\nList all unused variables, their type, and whether safe to remove.'); }},
+      action: function() { Symphonee.askAi('Find unused GTM variables.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/health\n\nList all unused variables, their type, and whether safe to remove.'); }},
     { t: 'Variable Audit', d: 'Check variable naming and configuration',
-      action: function() { DevOpsPilot.askAi('Audit all GTM variables.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/gtm/variables\n\nCheck naming conventions, find duplicates, flag misconfigured variables.'); }},
+      action: function() { Symphonee.askAi('Audit all GTM variables.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/gtm/variables\n\nCheck naming conventions, find duplicates, flag misconfigured variables.'); }},
     { t: 'Create a Variable', d: 'Let AI help you create a new GTM variable',
-      action: function() { DevOpsPilot.askAi('Help me create a new GTM variable. Ask me:\n1. What data do I need to capture?\n2. Where is the data (URL, DOM, cookie, dataLayer, etc.)?\n\nThen generate the variable configuration and explain how to set it up in Google Tag Manager.'); }},
+      action: function() { Symphonee.askAi('Help me create a new GTM variable. Ask me:\n1. What data do I need to capture?\n2. Where is the data (URL, DOM, cookie, dataLayer, etc.)?\n\nThen generate the variable configuration and explain how to set it up in Google Tag Manager.'); }},
   ],
   events: [
     { t: 'Suggest Missing Events', d: 'Compare against GA4 recommended events',
-      action: function() { DevOpsPilot.askAi('Analyze GA4 event tracking.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nList tracked vs missing recommended events with priority order.'); }},
+      action: function() { Symphonee.askAi('Analyze GA4 event tracking.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/audit\n\nList tracked vs missing recommended events with priority order.'); }},
     { t: 'Event Volume Analysis', d: 'Analyze event frequency and spot anomalies',
-      action: function() { DevOpsPilot.askAi('Analyze GA4 event volumes.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events?days=30\n\nRank by volume, spot anomalies, identify low-value events to consider removing.'); }},
+      action: function() { Symphonee.askAi('Analyze GA4 event volumes.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events?days=30\n\nRank by volume, spot anomalies, identify low-value events to consider removing.'); }},
     { t: 'Custom Events Review', d: 'Review custom event naming and parameters',
-      action: function() { DevOpsPilot.askAi('Review all custom GA4 events.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\n\nCheck naming conventions against GA4 best practices, flag issues.'); }},
+      action: function() { Symphonee.askAi('Review all custom GA4 events.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\n\nCheck naming conventions against GA4 best practices, flag issues.'); }},
     { t: 'Create an Event', d: 'Let AI help you set up a new GA4 event',
-      action: function() { DevOpsPilot.askAi('Help me create a new GA4 event. Ask me:\n1. What user action should I track?\n2. What parameters should the event include?\n3. Should it be a conversion?\n\nThen explain how to implement it via GTM or gtag.js, including the recommended parameters.'); }},
+      action: function() { Symphonee.askAi('Help me create a new GA4 event. Ask me:\n1. What user action should I track?\n2. What parameters should the event include?\n3. Should it be a conversion?\n\nThen explain how to implement it via GTM or gtag.js, including the recommended parameters.'); }},
   ],
   conversions: [
     { t: 'Conversion Analysis', d: 'Analyze conversion rates and suggest optimizations',
-      action: function() { DevOpsPilot.askAi('Analyze GA4 conversions.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/conversions\n\nList each conversion event with volume, suggest missing conversions and optimizations.'); }},
+      action: function() { Symphonee.askAi('Analyze GA4 conversions.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/conversions\n\nList each conversion event with volume, suggest missing conversions and optimizations.'); }},
     { t: 'Suggest Conversions', d: 'Recommend events that should be marked as conversions',
-      action: function() { DevOpsPilot.askAi('Suggest GA4 conversions to add.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/conversions\n\nCompare events vs conversions, recommend which events should be conversions and why.'); }},
+      action: function() { Symphonee.askAi('Suggest GA4 conversions to add.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/conversions\n\nCompare events vs conversions, recommend which events should be conversions and why.'); }},
     { t: 'Set Up a Conversion', d: 'Let AI help you configure a new conversion event',
-      action: function() { DevOpsPilot.askAi('Help me set up a new GA4 conversion. Show me my current events:\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\n\nBased on the events, recommend which ones should be conversions and explain how to mark them as conversions in GA4.'); }},
+      action: function() { Symphonee.askAi('Help me set up a new GA4 conversion. Show me my current events:\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/ga4/events\n\nBased on the events, recommend which ones should be conversions and explain how to mark them as conversions in GA4.'); }},
   ],
   health: [
     { t: 'Full Health Report', d: 'Comprehensive health report with actionable fixes',
-      action: function() { DevOpsPilot.askAi('Generate a comprehensive GTM health report.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/summary\n\nHealth score breakdown, critical issues, warnings, best practices. Save as note "GTM Health Report".'); }},
+      action: function() { Symphonee.askAi('Generate a comprehensive GTM health report.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/summary\n\nHealth score breakdown, critical issues, warnings, best practices. Save as note "GTM Health Report".'); }},
     { t: 'Container Size Check', d: 'Estimate container size and optimization tips',
-      action: function() { DevOpsPilot.askAi('Check GTM container size and optimization.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/health\n\nEstimate container size, list heaviest tags, suggest optimizations.'); }},
+      action: function() { Symphonee.askAi('Check GTM container size and optimization.\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/health\n\nEstimate container size, list heaviest tags, suggest optimizations.'); }},
   ]
 };
 var currentActions = TAB_ACTIONS.tags;
@@ -662,7 +662,7 @@ var authPollTimer = null;
 
 async function startGoogleAuth() {
   var r = await api('GET', '/auth/start');
-  if (r.error) { DevOpsPilot.toast(r.error, 'error'); return; }
+  if (r.error) { Symphonee.toast(r.error, 'error'); return; }
   if (r.url) {
     window.open(r.url, '_blank');
     document.getElementById('authStatusLine').textContent = 'Waiting for Google sign-in...';
@@ -673,7 +673,7 @@ async function startGoogleAuth() {
       if (s.connected) {
         clearInterval(authPollTimer);
         authPollTimer = null;
-        DevOpsPilot.toast('Connected to Google!', 'success');
+        Symphonee.toast('Connected to Google!', 'success');
         init();
       }
     }, 2000);
@@ -682,7 +682,7 @@ async function startGoogleAuth() {
 
 async function disconnectGoogle() {
   await api('POST', '/auth/disconnect');
-  DevOpsPilot.toast('Disconnected from Google.', 'info');
+  Symphonee.toast('Disconnected from Google.', 'info');
   init();
 }
 
@@ -798,7 +798,7 @@ async function saveDiscoverySelection() {
   var gtmVal = document.getElementById('pickGtm').value;
 
   if (!ga4Val && !gtmVal) {
-    DevOpsPilot.toast('Select at least one property or container.', 'info');
+    Symphonee.toast('Select at least one property or container.', 'info');
     return;
   }
 
@@ -815,7 +815,7 @@ async function saveDiscoverySelection() {
   await api('POST', '/select', body);
   settingsPanelOpen = false;
   document.getElementById('settingsPanel').style.display = 'none';
-  DevOpsPilot.toast('Saved! Loading data...', 'success');
+  Symphonee.toast('Saved! Loading data...', 'success');
   init();
 }
 
@@ -831,9 +831,9 @@ async function loadDashboard() {
     b.className = 'conn err';
     var errMsg = t.error || 'Unknown error';
     if (errMsg.indexOf('Quota') !== -1 || errMsg.indexOf('429') !== -1 || errMsg.indexOf('rate') !== -1) {
-      DevOpsPilot.toast('Google API rate limit reached. Wait 1-2 minutes and try again.', 'error');
+      Symphonee.toast('Google API rate limit reached. Wait 1-2 minutes and try again.', 'error');
     } else {
-      DevOpsPilot.toast('Connection failed: ' + errMsg, 'error');
+      Symphonee.toast('Connection failed: ' + errMsg, 'error');
     }
     return;
   }
@@ -1128,7 +1128,7 @@ async function openTagDetail(tagId) {
   if (!tag) {
     // Try fetching from API
     tag = await api('GET', '/gtm/tags/' + tagId);
-    if (tag.error) { DevOpsPilot.toast('Tag not found', 'error'); nav('dash'); return; }
+    if (tag.error) { Symphonee.toast('Tag not found', 'error'); nav('dash'); return; }
   }
 
   document.getElementById('tdName').textContent = tag.name || 'Unnamed Tag';
@@ -1195,14 +1195,14 @@ async function openTagDetail(tagId) {
   }
 
   document.getElementById('tdAskAi').onclick = function() {
-    DevOpsPilot.askAi('Tell me about the GTM tag "' + tag.name + '" (type: ' + (tag.type || 'Unknown') + ', ID: ' + tag.tagId + ').\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/gtm/tags/' + tag.tagId + '\n\nExplain:\n1. What this tag does\n2. When and how it fires\n3. Best practices for this tag type\n4. Any potential issues or optimizations');
+    Symphonee.askAi('Tell me about the GTM tag "' + tag.name + '" (type: ' + (tag.type || 'Unknown') + ', ID: ' + tag.tagId + ').\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/gtm/tags/' + tag.tagId + '\n\nExplain:\n1. What this tag does\n2. When and how it fires\n3. Best practices for this tag type\n4. Any potential issues or optimizations');
   };
 }
 
 // -- Event Detail -------------------------------------------------------------
 function openEventDetail(eventName) {
   var evt = allEvents.find(function(e) { return e.name === eventName; });
-  if (!evt) { DevOpsPilot.toast('Event not found', 'error'); nav('dash'); return; }
+  if (!evt) { Symphonee.toast('Event not found', 'error'); nav('dash'); return; }
 
   document.getElementById('edName').textContent = evt.name;
   var cat = classifyEvent(evt.name);
@@ -1237,14 +1237,14 @@ function openEventDetail(eventName) {
   document.getElementById('edRelatedTags').innerHTML = rth;
 
   document.getElementById('edAskAi').onclick = function() {
-    DevOpsPilot.askAi('Tell me about the GA4 event "' + evt.name + '".\nFetch current analytics data:\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/summary\n\nExplain:\n1. What this event tracks\n2. When it fires\n3. What parameters it typically includes\n4. Whether it is being used effectively\n5. Any recommendations for this event');
+    Symphonee.askAi('Tell me about the GA4 event "' + evt.name + '".\nFetch current analytics data:\ncurl -s http://127.0.0.1:3800/api/plugins/ga4-gtm/summary\n\nExplain:\n1. What this event tracks\n2. When it fires\n3. What parameters it typically includes\n4. Whether it is being used effectively\n5. Any recommendations for this event');
   };
 }
 
 // -- Trigger Detail -------------------------------------------------------------
 function openTriggerDetail(triggerId) {
   var trig = allTriggers.find(function(t) { return t.triggerId === triggerId; });
-  if (!trig) { DevOpsPilot.toast('Trigger not found', 'error'); nav('dash'); return; }
+  if (!trig) { Symphonee.toast('Trigger not found', 'error'); nav('dash'); return; }
 
   document.getElementById('trdName').textContent = trig.name || 'Unnamed Trigger';
   document.getElementById('trdType').textContent = 'Type: ' + (trig.type || 'Unknown');
@@ -1279,14 +1279,14 @@ function openTriggerDetail(triggerId) {
   document.getElementById('trdTags').innerHTML = th;
 
   document.getElementById('trdAskAi').onclick = function() {
-    DevOpsPilot.askAi('Tell me about the GTM trigger "' + trig.name + '" (type: ' + (trig.type || 'Unknown') + ', ID: ' + trig.triggerId + ').\n\nExplain:\n1. What this trigger does and when it fires\n2. Its conditions and filters\n3. Which tags it activates (' + usingTags.length + ' tags)\n4. Best practices for this trigger type\n5. Any potential issues');
+    Symphonee.askAi('Tell me about the GTM trigger "' + trig.name + '" (type: ' + (trig.type || 'Unknown') + ', ID: ' + trig.triggerId + ').\n\nExplain:\n1. What this trigger does and when it fires\n2. Its conditions and filters\n3. Which tags it activates (' + usingTags.length + ' tags)\n4. Best practices for this trigger type\n5. Any potential issues');
   };
 }
 
 // -- Variable Detail ------------------------------------------------------------
 function openVariableDetail(variableId) {
   var v = allVariables.find(function(x) { return x.variableId === variableId; });
-  if (!v) { DevOpsPilot.toast('Variable not found', 'error'); nav('dash'); return; }
+  if (!v) { Symphonee.toast('Variable not found', 'error'); nav('dash'); return; }
 
   document.getElementById('vdName').textContent = v.name || 'Unnamed Variable';
   document.getElementById('vdType').textContent = 'Type: ' + (v.type || 'Unknown');
@@ -1324,7 +1324,7 @@ function openVariableDetail(variableId) {
   document.getElementById('vdTags').innerHTML = th;
 
   document.getElementById('vdAskAi').onclick = function() {
-    DevOpsPilot.askAi('Tell me about the GTM variable "' + v.name + '" (type: ' + (v.type || 'Unknown') + ', ID: ' + v.variableId + ').\n\nExplain:\n1. What this variable captures\n2. How it gets its value\n3. Where it is typically used\n4. ' + (isUnused ? 'This variable appears unused -- should it be removed?' : 'Best practices for this variable type') + '\n5. Any optimization suggestions');
+    Symphonee.askAi('Tell me about the GTM variable "' + v.name + '" (type: ' + (v.type || 'Unknown') + ', ID: ' + v.variableId + ').\n\nExplain:\n1. What this variable captures\n2. How it gets its value\n3. Where it is typically used\n4. ' + (isUnused ? 'This variable appears unused -- should it be removed?' : 'Best practices for this variable type') + '\n5. Any optimization suggestions');
   };
 }
 
@@ -1358,13 +1358,13 @@ function openConversionDetail(eventName) {
   }
 
   document.getElementById('cdAskAi').onclick = function() {
-    DevOpsPilot.askAi('Tell me about the GA4 conversion "' + eventName + '" with ' + formatNum(count) + ' events in the last 30 days.\n\nExplain:\n1. What this conversion tracks\n2. Is the volume healthy?\n3. How to improve conversion rates\n4. Any recommended parameters to add\n5. How this compares to industry benchmarks');
+    Symphonee.askAi('Tell me about the GA4 conversion "' + eventName + '" with ' + formatNum(count) + ' events in the last 30 days.\n\nExplain:\n1. What this conversion tracks\n2. Is the volume healthy?\n3. How to improve conversion rates\n4. Any recommended parameters to add\n5. How this compares to industry benchmarks');
   };
 }
 
 // -- Message handling from parent (for view-plugin messages) -------------------
-if (window.DevOpsPilot && DevOpsPilot.on) {
-  DevOpsPilot.on('message', function(msg) {
+if (window.Symphonee && Symphonee.on) {
+  Symphonee.on('message', function(msg) {
     if (msg && msg.type === 'refresh') {
       loadDashboard();
     }
@@ -1375,7 +1375,7 @@ if (window.DevOpsPilot && DevOpsPilot.on) {
 init();
 
 // Auto-load when tab becomes visible
-DevOpsPilot.on('tabActivated', function(data) {
+Symphonee.on('tabActivated', function(data) {
   if (data && data.tab && data.tab.indexOf('ga4-gtm') !== -1) {
     init();
   }

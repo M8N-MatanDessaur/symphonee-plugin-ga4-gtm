@@ -1,6 +1,6 @@
 ## GA4 & GTM Analytics Plugin -- AI Instructions
 
-You have access to a Google Analytics 4 and Google Tag Manager plugin via the DevOps Pilot API. This lets you audit GTM tags, analyze GA4 events, and get health scores for your tracking setup.
+You have access to a Google Analytics 4 and Google Tag Manager plugin via the Symphonee API. This lets you audit GTM tags, analyze GA4 events, and get health scores for your tracking setup.
 
 **All routes are at** `http://127.0.0.1:3800/api/plugins/ga4-gtm/`
 
@@ -39,7 +39,7 @@ The plugin uses Google OAuth2 (user consent flow). Users sign in with their Goog
 
 1. Create an OAuth 2.0 Client ID in Google Cloud Console (APIs & Services > Credentials)
 2. Add `http://127.0.0.1:3800/api/plugins/ga4-gtm/auth/callback` as an authorized redirect URI
-3. In DevOps Pilot Settings > Plugins, enter the Client ID, Client Secret, GA4 Property ID, and GTM Account/Container IDs
+3. In Symphonee Settings > Plugins, enter the Client ID, Client Secret, GA4 Property ID, and GTM Account/Container IDs
 4. Click "Sign in with Google" in the Analytics tab
 
 ### Configuration & Auth

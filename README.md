@@ -1,6 +1,6 @@
-# GA4 & GTM Analytics Plugin for DevOps Pilot
+# GA4 & GTM Analytics Plugin for Symphonee
 
-A DevOps Pilot plugin that provides a dashboard for Google Analytics 4 and Google Tag Manager. Includes AI-powered tag audits, event tracking analysis, health scoring, and conversion monitoring.
+A Symphonee plugin that provides a dashboard for Google Analytics 4 and Google Tag Manager. Includes AI-powered tag audits, event tracking analysis, health scoring, and conversion monitoring.
 
 ## Features
 
@@ -27,7 +27,7 @@ A DevOps Pilot plugin that provides a dashboard for Google Analytics 4 and Googl
 
 ### 2. Plugin Configuration
 
-In DevOps Pilot, go to Settings > Plugins and configure:
+In Symphonee, go to Settings > Plugins and configure:
 
 - **Service Account JSON** -- paste the entire JSON key file content
 - **GA4 Property ID** -- numeric ID from GA4 Admin > Property Settings
@@ -36,7 +36,7 @@ In DevOps Pilot, go to Settings > Plugins and configure:
 
 ### 3. Install
 
-Copy this folder into your DevOps Pilot `dashboard/plugins/` directory and restart the app.
+Copy this folder into your Symphonee `dashboard/plugins/` directory and restart the app.
 
 ## API Endpoints
 
@@ -71,4 +71,4 @@ ga4-gtm/
 
 ## License
 
-Internal DevOps Pilot plugin.
+Internal Symphonee plugin.
